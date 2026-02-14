@@ -1,0 +1,562 @@
+/* Navbar.css - Premium Pro Developer - White Theme, NO BORDERS, Full Fixed Size */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Premium Pro Developer Color Palette - White Background */
+  --primary-navy: #0a192f;
+  --primary-slate: #172a45;
+  --accent-teal: #2dd4bf;
+  --accent-teal-dark: #14b8a6;
+  --accent-blue: #3b82f6;
+  --gray-50: #fafbfc;
+  --gray-100: #f5f7fa;
+  --gray-200: #eef2f6;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --white: #ffffff;
+  --shadow-sm: 0 10px 30px -10px rgba(10, 25, 47, 0.05);
+  --shadow-md: 0 20px 40px -12px rgba(10, 25, 47, 0.08);
+  --shadow-lg: 0 30px 60px -15px rgba(10, 25, 47, 0.1);
+  --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* ========== FULL WEBSITE FIXED SIZE ========== */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  font-family: 'Inter', 'SF Mono', 'Fira Code', 'Roboto Mono', monospace;
+  background: var(--white);
+  color: var(--gray-800);
+  width: 100%;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========== PREMIUM NAVBAR - ABSOLUTELY NO BORDERS ========== */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 3rem;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: none !important;
+  border-style: none !important;
+  border-width: 0 !important;
+  border-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  z-index: 1000;
+  transition: var(--transition);
+}
+
+nav.scrolled {
+  padding: 0.8rem 3rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: var(--shadow-sm) !important;
+  border: none !important;
+  border-style: none !important;
+  border-width: 0 !important;
+}
+
+/* ========== PRO DEVELOPER LOGO ========== */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+/* Code Bracket Icon - Pro Developer Style */
+.logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, var(--primary-navy), var(--primary-slate));
+  border-radius: 12px;
+  transform: rotate(0deg);
+  transition: var(--transition);
+  box-shadow: 0 8px 16px -6px rgba(10, 25, 47, 0.12);
+  position: relative;
+  overflow: hidden;
+  border: none !important;
+  border-style: none !important;
+  outline: none !important;
+}
+
+.logo-icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--accent-teal);
+  filter: drop-shadow(0 2px 4px rgba(45, 212, 191, 0.2));
+  transition: var(--transition);
+}
+
+.logo:hover .logo-icon {
+  transform: rotate(90deg);
+  background: linear-gradient(135deg, var(--primary-slate), var(--primary-navy));
+  box-shadow: 0 12px 20px -8px rgba(10, 25, 47, 0.2);
+}
+
+.logo:hover .logo-icon svg {
+  color: var(--white);
+  transform: scale(1.1);
+}
+
+/* Appas Text - Clean & Bold */
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.logo-text-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.logo-text-main {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  letter-spacing: -1px;
+  line-height: 1;
+  position: relative;
+  font-family: 'Inter', 'SF Mono', monospace;
+  transition: var(--transition);
+}
+
+.logo-text-main::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-teal), var(--accent-blue));
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+.logo:hover .logo-text-main::after {
+  width: 100%;
+}
+
+.logo-text-sub {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  margin-top: 2px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  transition: var(--transition);
+}
+
+.logo:hover .logo-text-sub {
+  color: var(--accent-teal);
+  letter-spacing: 3px;
+}
+
+/* Terminal Cursor Animation */
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 20px;
+  background: var(--accent-teal);
+  margin-left: 4px;
+  animation: blink 1s infinite;
+  opacity: 0.8;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* ========== NAV LINKS - PRO DEVELOPER STYLE ========== */
+.nav-links {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  counter-reset: nav-item;
+}
+
+/* Link Styling - Developer Aesthetic */
+.nav-links a {
+  color: var(--gray-700);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  position: relative;
+  transition: var(--transition);
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  z-index: 1;
+  border: none !important;
+  border-style: none !important;
+  outline: none !important;
+}
+
+/* Counter Effect - Pro Dev Style */
+.nav-links a::before {
+  counter-increment: nav-item;
+  content: "0" counter(nav-item) ".";
+  font-size: 0.8rem;
+  color: var(--accent-teal);
+  margin-right: 6px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: var(--transition);
+  display: inline-block;
+}
+
+.nav-links a:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Underline Effect - Minimal & Clean */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 1.2rem;
+  right: 1.2rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-teal), var(--accent-blue));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+  border-radius: 2px;
+}
+
+.nav-links a:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-links a:hover {
+  color: var(--primary-navy);
+  background: rgba(45, 212, 191, 0.04);
+}
+
+/* Active Link */
+.nav-links a.active {
+  color: var(--primary-navy);
+  font-weight: 600;
+  background: rgba(45, 212, 191, 0.06);
+}
+
+.nav-links a.active::after {
+  transform: scaleX(1);
+  background: linear-gradient(90deg, var(--accent-teal), var(--accent-blue));
+  height: 2.5px;
+}
+
+.nav-links a.active::before {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--accent-teal-dark);
+}
+
+/* Contact Button - Pro Developer Style - ABSOLUTELY NO BORDERS */
+.nav-links a[href="#contact"] {
+  background: var(--primary-navy) !important;
+  color: var(--white) !important;
+  border-radius: 50px !important;
+  padding: 0.6rem 1.8rem !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  border: none !important;
+  border-style: none !important;
+  border-width: 0 !important;
+  outline: none !important;
+  box-shadow: 0 8px 16px -6px rgba(10, 25, 47, 0.15) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: var(--transition) !important;
+  margin-left: 0.5rem !important;
+}
+
+.nav-links a[href="#contact"]::before {
+  content: "➤";
+  font-size: 0.9rem;
+  margin-right: 8px;
+  color: var(--accent-teal);
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.nav-links a[href="#contact"]::after {
+  display: none !important;
+}
+
+.nav-links a[href="#contact"]:hover {
+  background: var(--primary-slate) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 20px -8px rgba(10, 25, 47, 0.2) !important;
+}
+
+.nav-links a[href="#contact"]:hover::before {
+  color: var(--white);
+  animation: arrowMove 1s infinite;
+}
+
+@keyframes arrowMove {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+
+/* ========== MOBILE MENU TOGGLE ========== */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  background: var(--gray-100);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none !important;
+  border-style: none !important;
+  outline: none !important;
+}
+
+.mobile-menu-toggle:hover {
+  background: rgba(45, 212, 191, 0.1);
+}
+
+.hamburger-line {
+  width: 24px;
+  height: 2px;
+  background: var(--primary-navy);
+  margin: 3px 0;
+  transition: var(--transition);
+  border-radius: 2px;
+}
+
+.mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+  background: var(--accent-teal);
+}
+
+.mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+  background: var(--accent-teal);
+}
+
+/* ========== MOBILE NAVIGATION - NO BORDERS ========== */
+@media (max-width: 768px) {
+  nav {
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    width: 100%;
+    border: none !important;
+  }
+
+  nav.scrolled {
+    padding: 0.8rem 1.5rem;
+  }
+
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .logo-text-main {
+    font-size: 1.5rem;
+  }
+
+  .logo-text-sub {
+    font-size: 0.65rem;
+  }
+
+  /* Mobile Menu Button - Show */
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  /* Mobile Navigation Menu - NO BORDERS */
+  .nav-links {
+    position: fixed;
+    top: 80px;
+    left: 1.5rem;
+    right: 1.5rem;
+    width: calc(100% - 3rem);
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    background: var(--white);
+    border-radius: 24px;
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    z-index: 999;
+    border: none !important;
+    border-style: none !important;
+  }
+
+  .nav-links.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav-links a {
+    width: 100%;
+    text-align: left;
+    padding: 1rem 1.2rem !important;
+    font-size: 1rem;
+    border-radius: 12px;
+    margin: 0.2rem 0;
+    border: none !important;
+  }
+
+  .nav-links a::before {
+    opacity: 1;
+    transform: translateX(0);
+    width: 30px;
+  }
+
+  .nav-links a[href="#contact"] {
+    margin-top: 0.5rem !important;
+    text-align: center !important;
+    padding: 1rem !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    border: none !important;
+  }
+}
+
+@media (max-width: 576px) {
+  nav {
+    padding: 0.9rem 1.2rem;
+  }
+  
+  .nav-links {
+    left: 1.2rem;
+    right: 1.2rem;
+    width: calc(100% - 2.4rem);
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    padding: 0.8rem 1rem;
+  }
+  
+  .nav-links {
+    left: 1rem;
+    right: 1rem;
+    width: calc(100% - 2rem);
+  }
+}
+
+/* ========== ABSOLUTELY NO BORDERS ANYWHERE ========== */
+nav,
+nav *,
+nav:before,
+nav:after,
+.nav-links,
+.nav-links *,
+.nav-links a,
+.nav-links a:before,
+.nav-links a:after,
+.logo-icon,
+.mobile-menu-toggle,
+.mobile-menu-toggle *,
+.nav-links a[href="#contact"],
+.nav-links a[href="#contact"]:before,
+.nav-links a[href="#contact"]:after {
+  border: none !important;
+  border-style: none !important;
+  border-width: 0 !important;
+  border-color: transparent !important;
+  border-image: none !important;
+  outline: none !important;
+}
+
+/* ========== UTILITIES ========== */
+
+/* Selection */
+::selection {
+  background: rgba(45, 212, 191, 0.2);
+  color: var(--primary-navy);
+}
+
+::-moz-selection {
+  background: rgba(45, 212, 191, 0.2);
+  color: var(--primary-navy);
+}
+
+/* Remove focus outlines */
+a:focus,
+button:focus,
+.nav-links a:focus,
+.mobile-menu-toggle:focus {
+  outline: none !important;
+  border: none !important;
+}
+
+/* Fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  nav {
+    background: rgba(255, 255, 255, 0.95);
+    border: none !important;
+  }
+}
