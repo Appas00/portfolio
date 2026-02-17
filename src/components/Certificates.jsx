@@ -50,7 +50,7 @@ const Certificates = () => {
   const [cardWidth, setCardWidth] = useState(400);
   const sliderRef = useRef(null);
 
-  // Certificate data
+  // Certificate data - USING PUBLIC FOLDER PATHS
   const certificates = [
     {
       id: 1,
@@ -58,7 +58,7 @@ const Certificates = () => {
       issuer: "CareerSchool",
       date: "2025",
       icon: <FaCrown />,
-      file: "/src/certificates/CareerSchool_Full Stack Development.pdf",
+      file: "/portfolio/certificates/CareerSchool_Full Stack Development.pdf",
       color: "#3b82f6",
       level: "Professional",
       skills: ["React", "Node.js", "Mysql", "Flask"]
@@ -69,7 +69,7 @@ const Certificates = () => {
       issuer: "CareerSchool",
       date: "Sept 2025",
       icon: <FaStar />,
-      file: "/src/certificates/PythonStarBatch.pdf",
+      file: "/portfolio/certificates/PythonStarBatch.pdf",
       color: "#ffde57",
       level: "Excellence",
       skills: ["Python", "OOP", "Algorithms"]
@@ -80,7 +80,7 @@ const Certificates = () => {
       issuer: "Novitech",
       date: "Nov 2024",
       icon: <FaMicrochip />,
-      file: "/src/certificates/AI  Certificate.pdf",
+      file: "/portfolio/certificates/AI  Certificate.pdf",
       color: "#b829e0",
       level: "Advanced",
       skills: ["Machine Learning", "Neural Networks", "Python"]
@@ -90,7 +90,7 @@ const Certificates = () => {
       title: "Problem Solving",
       issuer: "HackerRank",
       icon: <FaCode />,
-      file: "/src/certificates/problem_solving_intermediate certificate.pdf",
+      file: "/portfolio/certificates/problem_solving_intermediate certificate.pdf",
       color: "#00d68f",
       level: "Intermediate",
       skills: ["Algorithms", "Data Structures", "Optimization"]
@@ -100,7 +100,7 @@ const Certificates = () => {
       title: "SQL",
       issuer: "HackerRank",
       icon: <FaDatabase />,
-      file: "/src/certificates/sql_intermediate certificate-1.pdf",
+      file: "/portfolio/certificates/sql_intermediate certificate-1.pdf",
       color: "#47a248",
       level: "Intermediate",
       skills: ["MySQL", "Queries", "Joins", "Indexing"]
@@ -111,7 +111,7 @@ const Certificates = () => {
       issuer: "Novitech",
       date: "2024",
       icon: <FaPython />,
-      file: "/src/certificates/Python development Novitech.pdf",
+      file: "/portfolio/certificates/Python development Novitech.pdf",
       color: "#ffde57",
       level: "Professional",
       skills: ["Python", "Flask", "APIs", "Testing"]
@@ -121,14 +121,14 @@ const Certificates = () => {
       title: "Python",
       issuer: "HackerRank",
       icon: <FaPython />,
-      file: "/src/certificates/python.pdf",
+      file: "/portfolio/certificates/python.pdf",
       color: "#ffde57",
       level: "Certified",
       skills: ["Python", "Syntax", "Libraries"]
     }
   ];
 
-  // SIMPLIFIED TECH STACK - Exactly as requested
+  // Tech Stack data
   const techStack = [
     { name: "HTML5", icon: <FaHtml5 />, color: "#e34c26" },
     { name: "CSS3", icon: <FaCss3Alt />, color: "#2965f1" },
@@ -145,7 +145,7 @@ const Certificates = () => {
     { name: "Next.js", icon: <SiNextdotjs />, color: "#ffffff" }
   ];
 
-  // Duplicate tech stack for seamless ticker
+  // Duplicate tech stack for ticker
   const tickerTechStack = [...techStack, ...techStack, ...techStack];
 
   // Handle view certificate
@@ -153,7 +153,7 @@ const Certificates = () => {
     window.open(cert.file, '_blank');
   };
 
-  // Certificate Navigation - FULLY FIXED
+  // Navigation functions
   const nextCertificate = () => {
     if (currentIndex < certificates.length - 1) {
       setCurrentIndex(currentIndex + 1);
@@ -191,15 +191,14 @@ const Certificates = () => {
     return () => window.removeEventListener('resize', updateCardWidth);
   }, []);
 
-  // Calculate translateX value - FIXED
+  // Calculate translateX value
   const getTranslateX = () => {
-    const gap = 32; // 2rem = 32px
+    const gap = 32;
     return -(currentIndex * (cardWidth + gap));
   };
 
   return (
     <div className="certificates-page">
-
       {/* Header Section */}
       <div className="certificates-header">
         <h1 className="page-title">
@@ -234,11 +233,9 @@ const Certificates = () => {
         }}></div>
       </div>
 
-      {/* Certificates Section - FULLY FIXED SLIDER */}
+      {/* Certificates Section */}
       {activeTab === "certificates" && (
         <div className="certificates-slider-container">
-          
-          {/* Main Certificate Card Slider */}
           <div className="certificate-slider-wrapper" ref={sliderRef}>
             <div 
               className="certificate-slider-track"
@@ -254,8 +251,6 @@ const Certificates = () => {
                   style={{ flex: `0 0 ${cardWidth}px`, width: `${cardWidth}px` }}
                 >
                   <div className="cert-card">
-                    
-                    {/* Card Header with Icon */}
                     <div className="cert-card-header" style={{ background: `linear-gradient(135deg, ${cert.color}20, transparent)` }}>
                       <div className="cert-card-icon" style={{ color: cert.color, background: `${cert.color}15` }}>
                         {cert.icon}
@@ -265,7 +260,6 @@ const Certificates = () => {
                       </div>
                     </div>
                     
-                    {/* Card Content */}
                     <div className="cert-card-content">
                       <h3 className="cert-card-title">{cert.title}</h3>
                       
@@ -282,7 +276,6 @@ const Certificates = () => {
                         )}
                       </div>
 
-                      {/* Skills Pills */}
                       <div className="cert-skills">
                         {cert.skills.map((skill, idx) => (
                           <span key={idx} className="skill-pill" style={{ background: `${cert.color}10`, color: cert.color }}>
@@ -291,7 +284,6 @@ const Certificates = () => {
                         ))}
                       </div>
 
-                      {/* View Button */}
                       <button 
                         className="view-cert-btn"
                         onClick={() => handleViewCertificate(cert)}
@@ -307,7 +299,6 @@ const Certificates = () => {
             </div>
           </div>
 
-          {/* Navigation Controls - FULLY FIXED */}
           <div className="certificate-controls">
             <button 
               className={`control-btn prev-btn ${currentIndex === 0 ? 'disabled' : ''}`}
@@ -340,7 +331,6 @@ const Certificates = () => {
             </button>
           </div>
 
-          {/* Current Index Badge */}
           <div className="current-index-badge">
             <span className="current-number">{currentIndex + 1 < 10 ? `0${currentIndex + 1}` : currentIndex + 1}</span>
             <span className="total-number">/{certificates.length < 10 ? `0${certificates.length}` : certificates.length}</span>
@@ -348,11 +338,9 @@ const Certificates = () => {
         </div>
       )}
 
-      {/* TECH STACK SECTION - RIGHT TO LEFT TICKER */}
+      {/* Tech Stack Section */}
       {activeTab === "techstack" && (
         <div className="techstack-ticker-container">
-          
-          {/* Ticker Title */}
           <div className="ticker-header">
             <h3 className="ticker-title">
               <FaBolt className="ticker-icon" />
@@ -361,7 +349,6 @@ const Certificates = () => {
             </h3>
           </div>
           
-          {/* Marquee Ticker - Right to Left */}
           <div className="ticker-wrapper">
             <div className="ticker-track">
               {tickerTechStack.map((tech, index) => (
@@ -375,7 +362,6 @@ const Certificates = () => {
             </div>
           </div>
 
-          {/* Tech Stats - Minimal */}
           <div className="ticker-stats">
             <div className="ticker-stat">
               <span className="ticker-stat-value">{techStack.length}</span>
@@ -394,7 +380,6 @@ const Certificates = () => {
           </div>
         </div>
       )}
-
     </div>
   );
 };

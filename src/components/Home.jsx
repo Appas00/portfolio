@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "../styles/Home.css";
+
 import { 
   FaGithub, FaLinkedin, FaInstagram, FaPython, FaReact, 
   FaNodeJs, FaCode, FaBolt, FaStar, FaCrown 
 } from "react-icons/fa";
 import { SiFlask, SiJavascript, SiMongodb } from "react-icons/si";
+
+// IMPORT THE IMAGE - FIX FOR GITHUB PAGES
+import profileImage from "../images/my pic2.png";
 
 const Home = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -209,7 +213,7 @@ const Home = () => {
                 <div className="image-glow"></div>
                 <div className="image-border"></div>
                 <img 
-                  src="/src/images/my pic2.png" 
+                  src={profileImage} 
                   alt="Appas M" 
                   className="profile-image"
                 />

@@ -32,6 +32,7 @@ const App = () => {
       <section id="contact">
         <Contact />
       </section>
+
     </>
   );
 };
