@@ -1,19 +1,94 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "../styles/Home.css";
 
 import { 
-  FaGithub, FaLinkedin, FaInstagram, FaPython, FaReact, 
-  FaNodeJs, FaCode, FaBolt, FaStar, FaCrown 
+  FaGithub, FaLinkedin, FaInstagram, FaPython, 
+  FaCode, FaBolt
 } from "react-icons/fa";
-import { SiFlask, SiJavascript, SiMongodb } from "react-icons/si";
 
-// IMPORT THE IMAGE - FIX FOR GITHUB PAGES
-import profileImage from "../images/my pic2.png";
+// IMPORT THE IMAGE
+import originalImage from "../images/my pic2.png";
 
 const Home = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [processedImage, setProcessedImage] = useState(null);
+  const [blendMode, setBlendMode] = useState("screen"); // Try different modes
+  
+  // Refs for 3D parallax effect
+  const imageWrapperRef = useRef(null);
+  const containerRef = useRef(null);
+  const imageRef = useRef(null);
+
+  // Process image to remove black background
+  useEffect(() => {
+    const removeBlackBackground = () => {
+      const img = new Image();
+      img.crossOrigin = "Anonymous";
+      img.src = originalImage;
+      
+      img.onload = () => {
+        // Create canvas
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        
+        // Set canvas dimensions to match image
+        canvas.width = img.width;
+        canvas.height = img.height;
+        
+        // Draw image on canvas
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        
+        // Get image data
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        
+        // Remove black background with multiple thresholds
+        for (let i = 0; i < data.length; i += 4) {
+          const r = data[i];
+          const g = data[i + 1];
+          const b = data[i + 2];
+          
+          // Check if pixel is dark/black (adjust threshold as needed)
+          // Lower threshold = less removal, Higher threshold = more removal
+          const threshold = 60; // Try values between 30-100
+          
+          // If all RGB values are below threshold, make it transparent
+          if (r < threshold && g < threshold && b < threshold) {
+            data[i + 3] = 0; // Set alpha to 0 (completely transparent)
+          }
+          
+          // Also remove very dark grays
+          if (r < 80 && g < 80 && b < 80 && 
+              Math.abs(r - g) < 20 && Math.abs(g - b) < 20) {
+            data[i + 3] = 0;
+          }
+        }
+        
+        // Put the modified data back
+        ctx.putImageData(imageData, 0, 0);
+        
+        // Convert canvas to data URL
+        const processedImageUrl = canvas.toDataURL('image/png');
+        setProcessedImage(processedImageUrl);
+      };
+    };
+    
+    removeBlackBackground();
+  }, []);
+
+  // Try different blend modes if canvas doesn't work
+  const cycleBlendMode = () => {
+    const modes = ['screen', 'lighten', 'multiply', 'normal'];
+    const currentIndex = modes.indexOf(blendMode);
+    const nextIndex = (currentIndex + 1) % modes.length;
+    setBlendMode(modes[nextIndex]);
+    
+    if (imageRef.current) {
+      imageRef.current.style.mixBlendMode = modes[nextIndex];
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,6 +110,48 @@ const Home = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // 3D Parallax Effect on Mouse Move
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!imageWrapperRef.current) return;
+      
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+      
+      // Calculate mouse position relative to center
+      const centerX = innerWidth / 2;
+      const centerY = innerHeight / 2;
+      
+      // Calculate rotation values (max 8 degrees for smoother effect)
+      const rotateY = ((clientX - centerX) / centerX) * 8;
+      const rotateX = ((clientY - centerY) / centerY) * -8;
+      
+      // Apply the transform with smooth transition
+      imageWrapperRef.current.style.transform = 
+        `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(30px)`;
+    };
+
+    const handleMouseLeave = () => {
+      if (!imageWrapperRef.current) return;
+      // Reset transform when mouse leaves
+      imageWrapperRef.current.style.transform = 
+        'rotateX(0deg) rotateY(0deg) translateZ(30px)';
+    };
+
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener('mousemove', handleMouseMove);
+      container.addEventListener('mouseleave', handleMouseLeave);
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener('mousemove', handleMouseMove);
+        container.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
   }, []);
 
   const handleLinkClick = (e, href) => {
@@ -148,7 +265,7 @@ const Home = () => {
       </nav>
 
       {/* ========== HOME SECTION ========== */}
-      <section id="home" className="home-section">
+      <section id="home" className="home-section" ref={containerRef}>
         {/* Animated Background Elements */}
         <div className="bg-gradient"></div>
         <div className="bg-dots"></div>
@@ -172,9 +289,7 @@ const Home = () => {
             </div>
 
             <p className="description">
-              I craft exceptional digital experiences with modern web technologies. 
-              Specialized in building scalable applications with React, Flask, 
-              and cloud technologies.
+              I craft exceptional digital experiences with modern web technologies.
             </p>
 
             {/* CTA Buttons */}
@@ -190,7 +305,7 @@ const Home = () => {
 
             {/* Social Icons */}
             <div className="social-section">
-              <span className="social-label">CONNECT WITH ME</span>
+              <span className="social-label">CONNECT</span>
               <div className="social-icons">
                 <a href="https://github.com/Appas00" target="_blank" rel="noopener noreferrer" className="social-icon github">
                   <FaGithub />
@@ -205,22 +320,35 @@ const Home = () => {
             </div>
           </div>
 
-          {/* ========== RIGHT SIDE - IMAGE WITH FLOATING ELEMENTS ========== */}
+          {/* ========== RIGHT SIDE - IMAGE WITH BLACK BACKGROUND REMOVED ========== */}
           <div className="content-right">
-            <div className="image-wrapper">
-              {/* Main Image with Premium Effects */}
+            <div 
+              className="image-wrapper" 
+              ref={imageWrapperRef}
+              style={{ transition: 'transform 0.1s ease-out' }}
+            >
               <div className="image-container">
-                <div className="image-glow"></div>
-                <div className="image-border"></div>
-                <img 
-                  src={profileImage} 
-                  alt="Appas M" 
-                  className="profile-image"
-                />
+                {processedImage ? (
+                  <img 
+                    ref={imageRef}
+                    src={processedImage} 
+                    alt="Appas M" 
+                    className="profile-image"
+                    style={{ mixBlendMode: 'normal' }} // Canvas already removed background
+                    onClick={cycleBlendMode} // Optional: click to cycle blend modes
+                  />
+                ) : (
+                  <img 
+                    ref={imageRef}
+                    src={originalImage} 
+                    alt="Appas M" 
+                    className="profile-image"
+                    style={{ mixBlendMode: blendMode }}
+                    onClick={cycleBlendMode}
+                  />
+                )}
                 
-                {/* ===== FLOATING BADGES - ONLY 3 AS REQUESTED ===== */}
-                
-                {/* 1. Python Star of the Batch */}
+                {/* Floating Badges */}
                 <div className="floating-badge python-star-badge">
                   <div className="badge-content">
                     <FaPython className="badge-icon python" />
@@ -231,7 +359,6 @@ const Home = () => {
                   </div>
                 </div>
                 
-                {/* 2. // available for work const hire = true; */}
                 <div className="floating-badge code-snippet-badge">
                   <div className="badge-content code-content">
                     <span className="code-comment">// available for work</span>
@@ -239,7 +366,6 @@ const Home = () => {
                   </div>
                 </div>
                 
-                {/* 3. Active GitHub Contributor */}
                 <div className="floating-badge github-contributor-badge">
                   <div className="badge-content">
                     <FaGithub className="badge-icon github" />
