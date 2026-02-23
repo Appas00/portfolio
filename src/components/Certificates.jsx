@@ -83,7 +83,7 @@ const Certificates = () => {
       file: "/portfolio/certificates/AI  Certificate.pdf",
       color: "#b829e0",
       level: "Advanced",
-      skills: ["Machine Learning", "Neural Networks", "Python"]
+      skills: ["Machine Learning", "Neural Networks"]
     },
     {
       id: 4,
@@ -93,7 +93,7 @@ const Certificates = () => {
       file: "/portfolio/certificates/problem_solving_intermediate certificate.pdf",
       color: "#00d68f",
       level: "Intermediate",
-      skills: ["Algorithms", "Data Structures", "Optimization"]
+      skills: ["Algorithms", "Data Structures"]
     },
     {
       id: 5,
@@ -128,6 +128,9 @@ const Certificates = () => {
     }
   ];
 
+  // Duplicate certificates for infinite scroll
+  const duplicatedCertificates = [...certificates, ...certificates, ...certificates];
+
   // Tech Stack data
   const techStack = [
     { name: "HTML5", icon: <FaHtml5 />, color: "#e34c26" },
@@ -145,7 +148,7 @@ const Certificates = () => {
     { name: "Next.js", icon: <SiNextdotjs />, color: "#ffffff" }
   ];
 
-  // Duplicate tech stack for ticker
+  // Duplicate tech stack for infinite ticker
   const tickerTechStack = [...techStack, ...techStack, ...techStack];
 
   // Handle view certificate
@@ -155,15 +158,11 @@ const Certificates = () => {
 
   // Navigation functions
   const nextCertificate = () => {
-    if (currentIndex < certificates.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
+    setCurrentIndex((prev) => (prev + 1) % certificates.length);
   };
 
   const prevCertificate = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    }
+    setCurrentIndex((prev) => (prev - 1 + certificates.length) % certificates.length);
   };
 
   const goToCertificate = (index) => {
@@ -191,10 +190,12 @@ const Certificates = () => {
     return () => window.removeEventListener('resize', updateCardWidth);
   }, []);
 
-  // Calculate translateX value
+  // Calculate translateX value for centered display
   const getTranslateX = () => {
     const gap = 32;
-    return -(currentIndex * (cardWidth + gap));
+    const containerWidth = sliderRef.current?.offsetWidth || 0;
+    const centerOffset = (containerWidth - cardWidth) / 2;
+    return centerOffset - (currentIndex * (cardWidth + gap));
   };
 
   return (
@@ -233,22 +234,24 @@ const Certificates = () => {
         }}></div>
       </div>
 
-      {/* Certificates Section */}
+      {/* Certificates Section - Now with Auto-Scrolling Ticker */}
       {activeTab === "certificates" && (
-        <div className="certificates-slider-container">
-          <div className="certificate-slider-wrapper" ref={sliderRef}>
-            <div 
-              className="certificate-slider-track"
-              style={{ 
-                transform: `translateX(${getTranslateX()}px)`,
-                gap: '2rem'
-              }}
-            >
-              {certificates.map((cert) => (
+        <div className="certificates-ticker-container">
+          <div className="ticker-header">
+            <h3 className="ticker-title">
+              <FaRocket className="ticker-icon" />
+              My Certifications
+              <FaRocket className="ticker-icon" />
+            </h3>
+          </div>
+          
+          <div className="ticker-wrapper certificates-ticker-wrapper">
+            <div className="ticker-track certificates-ticker-track" ref={sliderRef}>
+              {duplicatedCertificates.map((cert, index) => (
                 <div 
-                  key={cert.id} 
-                  className="certificate-slide"
-                  style={{ flex: `0 0 ${cardWidth}px`, width: `${cardWidth}px` }}
+                  key={`${cert.id}-${index}`} 
+                  className="ticker-item certificate-ticker-item"
+                  style={{ flex: `0 0 ${cardWidth}px` }}
                 >
                   <div className="cert-card">
                     <div className="cert-card-header" style={{ background: `linear-gradient(135deg, ${cert.color}20, transparent)` }}>
@@ -299,37 +302,6 @@ const Certificates = () => {
             </div>
           </div>
 
-          <div className="certificate-controls">
-            <button 
-              className={`control-btn prev-btn ${currentIndex === 0 ? 'disabled' : ''}`}
-              onClick={prevCertificate}
-              disabled={currentIndex === 0}
-              aria-label="Previous certificate"
-            >
-              <FaArrowLeft />
-            </button>
-            
-            <div className="control-indicators">
-              {certificates.map((_, index) => (
-                <button
-                  key={index}
-                  className={`control-dot ${currentIndex === index ? 'active' : ''}`}
-                  onClick={() => goToCertificate(index)}
-                  aria-label={`Go to certificate ${index + 1}`}
-                  style={currentIndex === index ? { background: certificates[index].color } : {}}
-                />
-              ))}
-            </div>
-
-            <button 
-              className={`control-btn next-btn ${currentIndex === certificates.length - 1 ? 'disabled' : ''}`}
-              onClick={nextCertificate}
-              disabled={currentIndex === certificates.length - 1}
-              aria-label="Next certificate"
-            >
-              <FaArrowRight />
-            </button>
-          </div>
 
           <div className="current-index-badge">
             <span className="current-number">{currentIndex + 1 < 10 ? `0${currentIndex + 1}` : currentIndex + 1}</span>
@@ -338,7 +310,7 @@ const Certificates = () => {
         </div>
       )}
 
-      {/* Tech Stack Section */}
+      {/* Tech Stack Section - With Rotation on Hover */}
       {activeTab === "techstack" && (
         <div className="techstack-ticker-container">
           <div className="ticker-header">
@@ -352,7 +324,7 @@ const Certificates = () => {
           <div className="ticker-wrapper">
             <div className="ticker-track">
               {tickerTechStack.map((tech, index) => (
-                <div key={index} className="ticker-item">
+                <div key={index} className="ticker-item tech-ticker-item">
                   <div className="tech-icon-ticker" style={{ color: tech.color, background: `${tech.color}15` }}>
                     {tech.icon}
                   </div>

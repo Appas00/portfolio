@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/Contact.css";  // ✅ Make sure this path is correct
+import "../styles/Contact.css";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,49 +11,16 @@ const Contact = () => {
 
   const [status, setStatus] = useState("");
   const [showCelebration, setShowCelebration] = useState(false);
-  const [isHoveringWhatsApp, setIsHoveringWhatsApp] = useState(false);
-  const [isHoveringEmail, setIsHoveringEmail] = useState(false);
-  const [copied, setCopied] = useState(false);
 
   // ✅ LIVE Backend URL
   const BACKEND_URL = "https://appasm.pythonanywhere.com";
-  
-  // ✅ WhatsApp Configuration
-  const WHATSAPP_NUMBER = "919080286624";
-  const WHATSAPP_MESSAGE = "Hii Appas";
-  
-  // ✅ Email Configuration
-  const EMAIL_ADDRESS = "appasm321@gmail.com";
-  const EMAIL_SUBJECT = "Hello Appas";
-  const EMAIL_BODY = "Hi Appas, I'd like to connect with you!";
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleWhatsAppClick = (e) => {
-    e.preventDefault();
-    const encodedMessage = encodeURIComponent(WHATSAPP_MESSAGE);
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-    window.open(whatsappUrl, '_blank');
-  };
-
-  const handleEmailClick = (e) => {
-    e.preventDefault();
-    const encodedSubject = encodeURIComponent(EMAIL_SUBJECT);
-    const encodedBody = encodeURIComponent(EMAIL_BODY);
-    const mailtoUrl = `mailto:${EMAIL_ADDRESS}?subject=${encodedSubject}&body=${encodedBody}`;
-    window.location.href = mailtoUrl;
-  };
-
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(EMAIL_ADDRESS);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   const createColorPapers = () => {
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 20; i++) {
       setTimeout(() => {
         const paper = document.createElement('div');
         paper.className = 'color-paper';
@@ -61,11 +28,11 @@ const Contact = () => {
         paper.style.top = Math.random() * 100 + '%';
         paper.style.animationDelay = Math.random() * 2 + 's';
         paper.style.background = `linear-gradient(135deg, 
-          ${i % 2 === 0 ? '#00e5f7' : '#b829e0'}, 
-          ${i % 3 === 0 ? '#ff4d6d' : '#00d68f'})`;
+          ${['#00e5f7', '#b829e0', '#ff4d6d', '#00d68f', '#ffde57'][Math.floor(Math.random() * 5)]}, 
+          ${['#b829e0', '#ff4d6d', '#00d68f', '#ffde57', '#00e5f7'][Math.floor(Math.random() * 5)]})`;
         document.body.appendChild(paper);
         setTimeout(() => paper.remove(), 5000);
-      }, i * 100);
+      }, i * 80);
     }
   };
 
@@ -73,7 +40,7 @@ const Contact = () => {
     const confettiContainer = document.createElement('div');
     confettiContainer.className = 'confetti-container';
     
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 80; i++) {
       const confetti = document.createElement('div');
       confetti.className = 'confetti';
       confetti.style.left = Math.random() * 100 + '%';
@@ -113,7 +80,7 @@ const Contact = () => {
         setShowCelebration(true);
         createConfetti();
         createColorPapers();
-        setTimeout(() => setShowCelebration(false), 4000);
+        setTimeout(() => setShowCelebration(false), 5000);
       } else {
         setStatus("❌ " + (data.message || "Something went wrong"));
       }
@@ -130,29 +97,34 @@ const Contact = () => {
       <div className="floating-orb orb-2"></div>
       <div className="floating-orb orb-3"></div>
 
-      {/* Celebration Alert */}
+      {/* Celebration Thank You Card */}
       {showCelebration && (
-        <div className="celebration-alert">
-          <div className="celebration-icon">
-            <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-            <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-            <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-            <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
+        <div className="thankyou-card">
+          <div className="thankyou-content">
+            <div className="thankyou-icon">
+              <svg viewBox="0 0 24 24" width="3em" height="3em" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <h2 className="thankyou-title">Thank You!</h2>
+            <p className="thankyou-message">Your message has been sent successfully!</p>
+            <p className="thankyou-name">{formData.name}</p>
+            <div className="thankyou-stars">
+              <svg viewBox="0 0 24 24" width="1.2em" height="1.2em">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              <svg viewBox="0 0 24 24" width="1.2em" height="1.2em">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              <svg viewBox="0 0 24 24" width="1.2em" height="1.2em">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            </div>
           </div>
-          <div className="celebration-message">Thank You!</div>
-          <div className="celebration-text">Your message has been sent successfully!</div>
         </div>
       )}
 
-      {/* Left Side */}
+      {/* Left Side - Only Title (No Box) */}
       <div className="contact-left">
         <h2>
           <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
@@ -161,131 +133,10 @@ const Contact = () => {
           Contact Me
         </h2>
         
-        <div className="contact-description">
-          <svg viewBox="0 0 24 24" width="1.5em" height="1.5em" fill="currentColor">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-          </svg>
-          <span>Have a question or want to collaborate? I'd love to hear from you! Drop me a message and I'll get back to you as soon as possible.</span>
-        </div>
-        
-        {/* Contact Info Container */}
-        <div className="contact-info-container">
-          {/* Email Container */}
-          <div className="contact-info-item email-item">
-            <div className="contact-info-header">
-              <div className="contact-icon-wrapper email-icon-wrapper">
-                <svg viewBox="0 0 24 24" width="1.2em" height="1.2em">
-                  <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                </svg>
-              </div>
-              <span className="contact-info-label">Email</span>
-            </div>
-            
-            <div className="contact-info-content">
-              <a 
-                href="#" 
-                onClick={handleEmailClick}
-                className="contact-info-link email-link"
-                onMouseEnter={() => setIsHoveringEmail(true)}
-                onMouseLeave={() => setIsHoveringEmail(false)}
-              >
-                <span className="contact-info-text">{EMAIL_ADDRESS}</span>
-                <span className="contact-info-badge email-badge">Send</span>
-              </a>
-              
-              <button 
-                className={`contact-copy-btn ${copied ? 'copied' : ''}`}
-                onClick={handleCopyEmail}
-              >
-                {copied ? (
-                  <>
-                    <svg viewBox="0 0 24 24" width="1em" height="1em">
-                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                    </svg>
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <svg viewBox="0 0 24 24" width="1em" height="1em">
-                      <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                    </svg>
-                    <span>Copy</span>
-                  </>
-                )}
-              </button>
-            </div>
-
-            {/* Email Tooltip */}
-            <div className={`contact-tooltip ${isHoveringEmail ? 'visible' : ''}`}>
-              <svg viewBox="0 0 24 24" width="1em" height="1em">
-                <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-              </svg>
-              <span>Click to send email or copy address</span>
-            </div>
-
-            {/* Quick Replies */}
-            <div className={`contact-quick-replies ${isHoveringEmail ? 'show' : ''}`}>
-              <button className="quick-reply-btn email-quick-reply" onClick={handleEmailClick}>
-                📧 General
-              </button>
-              <button className="quick-reply-btn email-quick-reply" onClick={handleEmailClick}>
-                💼 Business
-              </button>
-              <button className="quick-reply-btn email-quick-reply" onClick={handleEmailClick}>
-                🤝 Collab
-              </button>
-            </div>
-          </div>
-
-          {/* WhatsApp Container */}
-          <div className="contact-info-item whatsapp-item">
-            <div className="contact-info-header">
-              <div className="contact-icon-wrapper whatsapp-icon-wrapper">
-                <svg viewBox="0 0 24 24" width="1.2em" height="1.2em">
-                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                </svg>
-              </div>
-              <span className="contact-info-label">WhatsApp</span>
-            </div>
-            
-            <div className="contact-info-content">
-              <a 
-                href="#" 
-                onClick={handleWhatsAppClick}
-                className="contact-info-link whatsapp-link"
-                onMouseEnter={() => setIsHoveringWhatsApp(true)}
-                onMouseLeave={() => setIsHoveringWhatsApp(false)}
-              >
-                <span className="contact-info-text">9080286624</span>
-                <span className="contact-info-badge whatsapp-badge">
-                  <span className="badge-dot"></span>
-                  Online
-                </span>
-              </a>
-            </div>
-
-            {/* WhatsApp Tooltip */}
-            <div className={`contact-tooltip whatsapp-tooltip ${isHoveringWhatsApp ? 'visible' : ''}`}>
-              <svg viewBox="0 0 24 24" width="1em" height="1em">
-                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-              </svg>
-              <span>Click to chat on WhatsApp</span>
-            </div>
-
-            {/* Quick Replies */}
-            <div className={`contact-quick-replies ${isHoveringWhatsApp ? 'show' : ''}`}>
-              <button className="quick-reply-btn whatsapp-quick-reply" onClick={handleWhatsAppClick}>
-                👋 Hi
-              </button>
-              <button className="quick-reply-btn whatsapp-quick-reply" onClick={handleWhatsAppClick}>
-                💼 Project
-              </button>
-              <button className="quick-reply-btn whatsapp-quick-reply" onClick={handleWhatsAppClick}>
-                🤝 Collab
-              </button>
-            </div>
-          </div>
-        </div>
+        {/* Simple description without box */}
+        <p className="contact-description-simple">
+          Have a question or want to collaborate? I'd love to hear from you! Drop me a message and I'll get back to you as soon as possible.
+        </p>
       </div>
 
       {/* Right Side - Contact Form */}
