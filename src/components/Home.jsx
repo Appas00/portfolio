@@ -3,7 +3,7 @@ import "../styles/Home.css";
 
 import { 
   FaGithub, FaLinkedin, FaInstagram, FaPython, 
-  FaCode, FaBolt
+  FaCode, FaBolt, FaEnvelope, FaWhatsapp
 } from "react-icons/fa";
 
 // IMPORT THE IMAGE
@@ -193,6 +193,25 @@ const Home = () => {
     };
   }, [mobileMenuOpen]);
 
+  // WhatsApp click handler
+  const handleWhatsAppClick = (e) => {
+    e.preventDefault();
+    const phoneNumber = "9080286624";
+    const message = "Hii Appas";
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  // Email click handler
+  const handleEmailClick = (e) => {
+    e.preventDefault();
+    const email = "appasm321@gmail.com";
+    const subject = "Inquiry from Portfolio";
+    const body = "Hello Appas,";
+    const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
+  };
+
   return (
     <div className="home-container">
       {/* ========== PREMIUM NAVBAR ========== */}
@@ -303,18 +322,61 @@ const Home = () => {
               </a>
             </div>
 
-            {/* Social Icons */}
-            <div className="social-section">
-              <span className="social-label">CONNECT</span>
-              <div className="social-icons">
-                <a href="https://github.com/Appas00" target="_blank" rel="noopener noreferrer" className="social-icon github">
+            {/* Large Icons Section - No Text */}
+            <div className="large-icons-section">
+              <span className="icons-label">CONNECT WITH ME</span>
+              <div className="large-icons-grid">
+                {/* GitHub */}
+                <a 
+                  href="https://github.com/Appas00" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="large-icon github"
+                  title="GitHub"
+                >
                   <FaGithub />
                 </a>
-                <a href="https://www.linkedin.com/in/appas-m-55bb05294" target="_blank" rel="noopener noreferrer" className="social-icon linkedin">
+
+                {/* LinkedIn */}
+                <a 
+                  href="https://www.linkedin.com/in/appas-m-55bb05294" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="large-icon linkedin"
+                  title="LinkedIn"
+                >
                   <FaLinkedin />
                 </a>
-                <a href="https://www.instagram.com/mr_appass/" target="_blank" rel="noopener noreferrer" className="social-icon instagram">
+
+                {/* Instagram */}
+                <a 
+                  href="https://www.instagram.com/mr_appass/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="large-icon instagram"
+                  title="Instagram"
+                >
                   <FaInstagram />
+                </a>
+
+                {/* Email */}
+                <a 
+                  href="#" 
+                  className="large-icon email"
+                  onClick={handleEmailClick}
+                  title="Email: appasm321@gmail.com"
+                >
+                  <FaEnvelope />
+                </a>
+
+                {/* WhatsApp */}
+                <a 
+                  href="#" 
+                  className="large-icon whatsapp"
+                  onClick={handleWhatsAppClick}
+                  title="WhatsApp: 9080286624"
+                >
+                  <FaWhatsapp />
                 </a>
               </div>
             </div>

@@ -1,4 +1,4 @@
-/* Home.css - Premium Developer Portfolio - CLEAN IMAGE WITH ONLY FLOATING BADGES */
+/* Home.css - Premium Developer Portfolio - WITH MOBILE RESPONSIVE FLOATING BADGES & LARGE ICONS */
 
 * {
   margin: 0;
@@ -39,7 +39,7 @@ html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  perspective: 1000px;
+  perspective: 1200px;
 }
 
 body {
@@ -385,20 +385,6 @@ nav.scrolled {
   margin-bottom: 1.5rem;
 }
 
-.greeting-badge {
-  display: inline-block;
-  padding: 0.5rem 1.2rem;
-  background: rgba(0, 229, 247, 0.1);
-  border: 1px solid rgba(0, 229, 247, 0.3);
-  border-radius: 6px;
-  color: var(--accent-cyan);
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  margin-bottom: 1.2rem;
-  box-shadow: 0 0 20px rgba(0, 229, 247, 0.1);
-}
-
 .title {
   font-size: 4rem;
   font-weight: 800;
@@ -532,59 +518,135 @@ nav.scrolled {
   transform: translateY(-3px);
 }
 
-.social-section {
+/* ========== LARGE ICONS SECTION ========== */
+.large-icons-section {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.icons-label {
+  display: block;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.large-icons-grid {
   display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
 
-.social-label {
-  font-size: 0.9rem;
-  color: var(--text-tertiary);
-  letter-spacing: 3px;
-}
-
-.social-icons {
-  display: flex;
-  gap: 1rem;
-}
-
-.social-icon {
+.large-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 45px;
-  height: 45px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  color: var(--text-secondary);
-  font-size: 1.4rem;
-  transition: var(--transition);
-  border: 1px solid var(--glass-border);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  color: #fff;
+  font-size: 2.2rem;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
 }
 
-.social-icon:hover {
-  transform: translateY(-5px);
-  color: var(--text-primary);
+.large-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
 }
 
-.social-icon.github:hover {
-  background: #333;
-  border-color: #fff;
+.large-icon svg {
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
 }
 
-.social-icon.linkedin:hover {
-  background: #0077b5;
-  border-color: #fff;
+/* Hover Effects - Each icon gets its brand color */
+.large-icon.github:hover {
+  color: #333;
+  border-color: #333;
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 15px 30px rgba(51, 51, 51, 0.4);
+  background: #fff;
 }
 
-.social-icon.instagram:hover {
-  background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949, #d6249f, #285AEB);
-  border-color: #fff;
+.large-icon.linkedin:hover {
+  color: #0077b5;
+  border-color: #0077b5;
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 15px 30px rgba(0, 119, 181, 0.4);
+  background: #fff;
 }
 
-/* ========== RIGHT SIDE - CLEAN IMAGE WITH FLOATING BADGES ========== */
-/* ========== RIGHT SIDE - CLEAN IMAGE WITH FLOATING BADGES ========== */
+.large-icon.instagram:hover {
+  color: #d62976;
+  border-color: #d62976;
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 15px 30px rgba(214, 41, 118, 0.4);
+  background: #fff;
+}
+
+.large-icon.email:hover {
+  color: #EA4335;
+  border-color: #EA4335;
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 15px 30px rgba(234, 67, 53, 0.4);
+  background: #fff;
+}
+
+.large-icon.whatsapp:hover {
+  color: #25D366;
+  border-color: #25D366;
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
+  background: #fff;
+}
+
+.large-icon:hover svg {
+  transform: scale(1.1);
+}
+
+/* Tooltip styling */
+.large-icon[title] {
+  position: relative;
+  cursor: pointer;
+}
+
+.large-icon[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  z-index: 10;
+  pointer-events: none;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ========== RIGHT SIDE - IMAGE WITH FLOATING BADGES ========== */
 .content-right {
   flex: 1;
   display: flex;
@@ -593,6 +655,7 @@ nav.scrolled {
   animation: slideInRight 1s ease;
   transform-style: preserve-3d;
   perspective: 1000px;
+  position: relative;
 }
 
 @keyframes slideInRight {
@@ -626,11 +689,10 @@ nav.scrolled {
   justify-content: center;
   align-items: center;
   transform-style: preserve-3d;
-  /* No background effects */
   background: transparent !important;
 }
 
-/* ===== BLACK BACKGROUND REMOVAL - FIX ===== */
+/* Profile Image with Black Background Removal */
 .profile-image {
   position: relative;
   width: 100%;
@@ -638,48 +700,17 @@ nav.scrolled {
   object-fit: cover;
   object-position: center;
   display: block;
-  
-  /* CRITICAL: Remove any borders/shapes */
   border-radius: 0;
-  
-  /* BLACK BACKGROUND REMOVAL TECHNIQUES */
-  
-  /* Method 1: Screen blend mode - makes black transparent */
   mix-blend-mode: screen;
-  
-  /* Method 2: Adjust brightness and contrast to enhance image */
   filter: brightness(1.2) contrast(1.3) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
-  
-  /* Alternative: If screen doesn't work well, try lighten */
-  /* mix-blend-mode: lighten; */
-  
-  /* Ensure transparency is respected */
   background: transparent !important;
-  
-  /* Remove any default backgrounds */
   background-color: transparent !important;
-  
   z-index: 2;
   transition: all 0.3s ease;
   transform: translateZ(30px) scale(1.02);
 }
 
-
-
-/* Alternative - If screen blend mode removes too much, use this approach */
-.profile-image.screen-mode {
-  mix-blend-mode: screen;
-}
-
-.profile-image.lighten-mode {
-  mix-blend-mode: lighten;
-}
-
-.profile-image.multiply-mode {
-  mix-blend-mode: multiply;
-}
-
-/* Add a subtle glow behind the image to make it pop */
+/* Background glow */
 .image-container::before {
   content: '';
   position: absolute;
@@ -694,19 +725,6 @@ nav.scrolled {
   border-radius: 0;
 }
 
-/* Loading state */
-.profile-image.processing {
-  opacity: 0.8;
-  filter: blur(2px);
-}
-
-/* Remove any pseudo-elements that might add effects */
-.profile-image::before,
-.profile-image::after {
-  display: none !important;
-  content: none !important;
-}
-
 /* ===== FLOATING BADGES ===== */
 .floating-badge {
   position: absolute;
@@ -714,42 +732,70 @@ nav.scrolled {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(0, 229, 247, 0.2);
-  border-radius: 6px;
-  padding: 0.7rem 1.3rem;
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
   display: flex;
   align-items: center;
-  gap: 10px;
-  box-shadow: var(--shadow-md);
-  animation: floatAround3D 5s infinite;
+  gap: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  animation: floatBadge 4s infinite ease-in-out;
   z-index: 20;
   transition: all 0.3s ease;
   transform-style: preserve-3d;
-  pointer-events: none;
+  white-space: nowrap;
 }
 
-/* Make badges interactive on hover */
-.floating-badge:hover {
-  transform: scale(1.1) translateZ(40px);
-  border-color: var(--accent-cyan);
-  box-shadow: 0 0 40px rgba(0, 229, 247, 0.5);
+/* Python Star Badge */
+.python-star-badge {
+  top: 15%;
+  right: -20px;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(255, 222, 87, 0.2));
+  border-left: 4px solid #ffde57;
+  animation-delay: 0s;
+  transform: translateZ(50px);
+}
+
+/* GitHub Contributor Badge */
+.github-contributor-badge {
+  top: 40%;
+  right: -30px;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(36, 41, 46, 0.5));
+  border-left: 4px solid #fff;
+  animation-delay: 0.5s;
+  transform: translateZ(60px);
+}
+
+/* Code Snippet Badge */
+.code-snippet-badge {
+  bottom: 20%;
+  right: -10px;
   background: rgba(10, 12, 15, 0.95);
-  pointer-events: auto;
-  z-index: 30;
+  border-left: 4px solid var(--accent-cyan);
+  padding: 0.8rem 1.8rem;
+  animation-delay: 1s;
+  transform: translateZ(70px);
 }
 
+/* Badge content styling */
 .badge-content {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+}
+
+.code-content {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
 }
 
 .badge-icon {
-  font-size: 1.3rem;
+  font-size: 1.6rem;
 }
 
 .badge-icon.python { 
   color: #ffde57;
-  filter: drop-shadow(0 0 10px rgba(255, 222, 87, 0.5));
+  filter: drop-shadow(0 0 15px rgba(255, 222, 87, 0.5));
 }
 
 .badge-icon.github { 
@@ -763,25 +809,14 @@ nav.scrolled {
 }
 
 .badge-text strong {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--text-primary);
   font-weight: 700;
-  line-height: 1.2;
 }
 
 .badge-text span {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
-}
-
-/* Python Star Badge */
-.python-star-badge {
-  top: 15%;
-  left: 0;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(255, 222, 87, 0.2));
-  border-left: 4px solid #ffde57;
-  animation-delay: 0s;
-  transform: translateZ(40px);
 }
 
 .python-star-badge .badge-text strong {
@@ -789,44 +824,17 @@ nav.scrolled {
   text-shadow: 0 0 10px rgba(255, 222, 87, 0.3);
 }
 
-/* Code Snippet Badge */
-.code-snippet-badge {
-  bottom: 20%;
-  left: 10%;
-  background: rgba(10, 12, 15, 0.95);
-  border-left: 4px solid var(--accent-cyan);
-  padding: 0.7rem 1.5rem;
-  animation-delay: 1.5s;
-  transform: translateZ(50px);
-}
-
-.code-content {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 3px;
-}
-
 .code-snippet-badge .code-comment {
   color: var(--text-tertiary);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-family: 'Fira Code', monospace;
 }
 
 .code-snippet-badge .code-line {
   color: var(--accent-cyan);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 600;
   font-family: 'Fira Code', monospace;
-}
-
-/* GitHub Contributor Badge */
-.github-contributor-badge {
-  top: 25%;
-  right: 5%;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(36, 41, 46, 0.5));
-  border-left: 4px solid #fff;
-  animation-delay: 0.8s;
-  transform: translateZ(60px);
 }
 
 .github-contributor-badge .badge-text strong {
@@ -835,6 +843,15 @@ nav.scrolled {
 
 .github-contributor-badge .badge-text span {
   color: #ccc;
+}
+
+/* Badge hover effects */
+.floating-badge:hover {
+  transform: scale(1.1) translateZ(80px);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 50px rgba(0, 229, 247, 0.6);
+  z-index: 30;
+  cursor: pointer;
 }
 
 /* Badge glow effect */
@@ -853,18 +870,22 @@ nav.scrolled {
   border-radius: inherit;
 }
 
-@keyframes floatAround3D {
+/* Float animation */
+@keyframes floatBadge {
   0%, 100% { 
-    transform: translate(0, 0) translateZ(var(--z, 20px));
-  }
-  25% { 
-    transform: translate(10px, -15px) translateZ(calc(var(--z, 20px) + 5px));
+    transform: translateY(0) translateZ(40px);
   }
   50% { 
-    transform: translate(5px, -20px) translateZ(calc(var(--z, 20px) + 10px));
+    transform: translateY(-15px) translateZ(50px);
   }
-  75% { 
-    transform: translate(-5px, -10px) translateZ(calc(var(--z, 20px) + 5px));
+}
+
+@keyframes floatBadgeMobile {
+  0%, 100% { 
+    transform: translateY(0) translateZ(20px);
+  }
+  50% { 
+    transform: translateY(-8px) translateZ(25px);
   }
 }
 
@@ -911,6 +932,8 @@ nav.scrolled {
 }
 
 /* ========== RESPONSIVE DESIGN ========== */
+
+/* Large Desktop (1200px - 1400px) */
 @media (max-width: 1400px) {
   nav {
     padding: 1rem 2.5rem;
@@ -938,6 +961,7 @@ nav.scrolled {
   }
 }
 
+/* Desktop (992px - 1200px) */
 @media (max-width: 1200px) {
   nav {
     padding: 1rem 2rem;
@@ -973,7 +997,9 @@ nav.scrolled {
     justify-content: center;
   }
   
-  .social-section {
+  .large-icons-section {
+    display: flex;
+    flex-direction: column;
     align-items: center;
   }
   
@@ -987,12 +1013,9 @@ nav.scrolled {
     min-height: 500px;
     width: 100%;
   }
-  
-  .floating-badge {
-    transform: scale(0.9);
-  }
 }
 
+/* Tablet (768px - 992px) */
 @media (max-width: 992px) {
   nav {
     padding: 0.9rem 1.8rem;
@@ -1010,8 +1033,64 @@ nav.scrolled {
     height: 60vh;
     min-height: 450px;
   }
+  
+  /* Floating Badges - Tablet */
+  .floating-badge {
+    padding: 0.6rem 1.2rem;
+    animation: floatBadgeMobile 3.5s infinite ease-in-out;
+  }
+  
+  .python-star-badge {
+    top: 10%;
+    right: 10px;
+    transform: translateZ(40px);
+  }
+  
+  .github-contributor-badge {
+    top: 35%;
+    right: 15px;
+    transform: translateZ(45px);
+  }
+  
+  .code-snippet-badge {
+    bottom: 15%;
+    right: 20px;
+    transform: translateZ(50px);
+  }
+  
+  .badge-icon {
+    font-size: 1.3rem;
+  }
+  
+  .badge-text strong {
+    font-size: 0.85rem;
+  }
+  
+  .badge-text span {
+    font-size: 0.65rem;
+  }
+  
+  .code-snippet-badge .code-comment {
+    font-size: 0.7rem;
+  }
+  
+  .code-snippet-badge .code-line {
+    font-size: 0.8rem;
+  }
+  
+  /* Large Icons - Tablet */
+  .large-icons-grid {
+    gap: 1.2rem;
+  }
+  
+  .large-icon {
+    width: 65px;
+    height: 65px;
+    font-size: 2rem;
+  }
 }
 
+/* Small Tablet & Large Phone (576px - 768px) */
 @media (max-width: 768px) {
   nav {
     padding: 0.8rem 1.5rem;
@@ -1100,8 +1179,61 @@ nav.scrolled {
     min-height: 400px;
   }
   
+  /* Floating Badges - Small Tablet */
   .floating-badge {
-    display: none; /* Hide badges on mobile for cleaner look */
+    padding: 0.5rem 1rem;
+    animation: floatBadgeMobile 3s infinite ease-in-out;
+    border-left-width: 3px;
+  }
+  
+  .python-star-badge {
+    top: 8%;
+    right: 5px;
+    transform: translateZ(30px);
+  }
+  
+  .github-contributor-badge {
+    top: 32%;
+    right: 8px;
+    transform: translateZ(35px);
+  }
+  
+  .code-snippet-badge {
+    bottom: 12%;
+    right: 10px;
+    transform: translateZ(40px);
+  }
+  
+  .badge-icon {
+    font-size: 1.2rem;
+  }
+  
+  .badge-text strong {
+    font-size: 0.8rem;
+  }
+  
+  .badge-text span {
+    font-size: 0.6rem;
+  }
+  
+  .code-snippet-badge .code-comment {
+    font-size: 0.65rem;
+  }
+  
+  .code-snippet-badge .code-line {
+    font-size: 0.75rem;
+  }
+  
+  /* Large Icons - Small Tablet */
+  .large-icons-grid {
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .large-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.8rem;
   }
   
   .scroll-indicator {
@@ -1109,6 +1241,7 @@ nav.scrolled {
   }
 }
 
+/* Mobile Phone (480px - 576px) */
 @media (max-width: 576px) {
   nav {
     padding: 0.7rem 1.2rem;
@@ -1134,10 +1267,6 @@ nav.scrolled {
   
   .home-section {
     padding: 70px 1rem 2rem;
-  }
-  
-  .home-content {
-    width: 100%;
   }
   
   .title {
@@ -1169,11 +1298,69 @@ nav.scrolled {
     min-height: 350px;
   }
   
+  /* Floating Badges - Mobile */
+  .floating-badge {
+    padding: 0.4rem 0.8rem;
+    gap: 8px;
+    animation: floatBadgeMobile 2.5s infinite ease-in-out;
+    border-left-width: 3px;
+  }
+  
+  .python-star-badge {
+    top: 5%;
+    right: 5px;
+    transform: translateZ(25px);
+  }
+  
+  .github-contributor-badge {
+    top: 28%;
+    right: 5px;
+    transform: translateZ(28px);
+  }
+  
+  .code-snippet-badge {
+    bottom: 8%;
+    right: 5px;
+    transform: translateZ(30px);
+  }
+  
+  .badge-icon {
+    font-size: 1.1rem;
+  }
+  
+  .badge-text strong {
+    font-size: 0.75rem;
+  }
+  
+  .badge-text span {
+    font-size: 0.55rem;
+  }
+  
+  .code-snippet-badge .code-comment {
+    font-size: 0.6rem;
+  }
+  
+  .code-snippet-badge .code-line {
+    font-size: 0.7rem;
+  }
+  
+  /* Large Icons - Mobile */
+  .large-icons-grid {
+    gap: 0.9rem;
+  }
+  
+  .large-icon {
+    width: 55px;
+    height: 55px;
+    font-size: 1.7rem;
+  }
+  
   .scroll-indicator {
     bottom: 15px;
   }
 }
 
+/* Small Mobile Phone (below 480px) */
 @media (max-width: 480px) {
   nav {
     padding: 0.6rem 1rem;
@@ -1214,17 +1401,99 @@ nav.scrolled {
     height: 35vh;
     min-height: 300px;
   }
+  
+  /* Floating Badges - Small Mobile */
+  .floating-badge {
+    padding: 0.3rem 0.7rem;
+    gap: 6px;
+    animation: floatBadgeMobile 2s infinite ease-in-out;
+    border-left-width: 2px;
+  }
+  
+  .python-star-badge {
+    top: 3%;
+    right: 3px;
+    transform: translateZ(20px);
+  }
+  
+  .github-contributor-badge {
+    top: 25%;
+    right: 3px;
+    transform: translateZ(22px);
+  }
+  
+  .code-snippet-badge {
+    bottom: 5%;
+    right: 3px;
+    transform: translateZ(24px);
+  }
+  
+  .badge-icon {
+    font-size: 1rem;
+  }
+  
+  .badge-text strong {
+    font-size: 0.7rem;
+  }
+  
+  .badge-text span {
+    font-size: 0.5rem;
+  }
+  
+  .code-snippet-badge .code-comment {
+    font-size: 0.55rem;
+  }
+  
+  .code-snippet-badge .code-line {
+    font-size: 0.65rem;
+  }
+  
+  /* Large Icons - Small Mobile */
+  .large-icons-grid {
+    gap: 0.8rem;
+  }
+  
+  .large-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
 }
 
-/* Ensure NO BORDERS anywhere */
+/* Animation for icons entrance */
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  80% {
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.large-icon {
+  animation: popIn 0.5s ease forwards;
+  opacity: 0;
+}
+
+.large-icon:nth-child(1) { animation-delay: 0.1s; }
+.large-icon:nth-child(2) { animation-delay: 0.2s; }
+.large-icon:nth-child(3) { animation-delay: 0.3s; }
+.large-icon:nth-child(4) { animation-delay: 0.4s; }
+.large-icon:nth-child(5) { animation-delay: 0.5s; }
+
+/* Ensure NO BORDERS on specific elements */
 nav, 
 .nav-links a,
 .contact-btn,
 .mobile-menu-toggle,
 .btn-primary,
 .btn-secondary,
-.floating-badge,
-.greeting-badge {
+.floating-badge {
   border: none !important;
   outline: none !important;
 }
